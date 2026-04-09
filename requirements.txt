@@ -1,0 +1,5 @@
+transformers
+onnxruntime
+optimum[onnxruntime]
+numpy
+sentencepiece
