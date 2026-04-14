@@ -3,3 +3,5 @@ onnxruntime
 optimum[onnxruntime]
 numpy
 sentencepiece
+sentence-transformers
+scikit-learn
