@@ -15,3 +15,59 @@ Case study comparing both F32 and INT8 on PC and Raspberry PI Zero 2W.
 ## Setup Instructions
 
 Please follow the [Detailed Step-by-Step Directions](container-instructions.md) to configure your environment.
+
+## Results
+
+🚀 Performing Benchmark comparison for ARM64 models in F32 and then INT8
+
+📊 Benchmarking quantized model (INT8)
+CPU Usage: 163.3%
+Per-core CPU Usage: [18.6, 28.8, 24.0, 21.8]
+Latency: 31.02s
+Summary: the ZEUS-X1 battery array uses a heterogeneous cell-to-pack architecture. each cell rated for a nominal voltage of 3.2V. a thermal management system activates an active liquid-cooling loop.
+
+Peak CPU% 115.2%
+MEM% 46%
+
+🔍 Cosine Similarity: 0.9378
+
+📊 Benchmarking quantized model (INT8)
+CPU Usage: 134.5%
+Per-core CPU Usage: [19.6, 22.1, 26.3, 20.3]
+Latency: 36.03s
+Summary: the RAVEN system is an internally developed battery management platform. it provides continuous measurement of cell voltage, temperature, and discharge rates across all units. the system is deployed on our local network to ensure full control.
+🔍 Cosine Similarity: 0.9955
+
+🚀 Performing Benchmark comparison for AMD64 models in F32 and then INT8
+
+📊 Benchmarking full precision model (F32)
+CPU Usage: 1562.8%
+Per-core CPU Usage: [32.7, 28.2, 25.1, 24.8, 25.1, 24.9, 25.0, 25.1, 25.4, 25.3, 25.0, 33.9, 31.3, 31.2, 29.7, 65.7]
+Latency: 1.97s
+Summary: the ZEUS-X1 battery array employs a heterogeneous cell-to-pack (CTP) architecture. each cell is rated for a nominal voltage of 3.2V. the integrated thermal management system activates an active liquid-cooling loop
+
+📊 Benchmarking quantized model (INT8)
+CPU Usage: 1576.0%
+Per-core CPU Usage: [98.6, 70.0, 70.3, 69.7, 68.9, 68.8, 69.2, 70.1, 70.0, 69.1, 69.5, 69.5, 69.1, 69.1, 69.1, 69.5]
+Latency: 1.43s
+Summary: ZEUS-X1 battery array utilises a heterogeneous cell-to-pack architecture. it activates an active liquid-cooling loop once the internal thermistor bridge detects a temperature gradient delta (Delta T) greater than
+
+🔍 Cosine Similarity: 0.8375
+
+🚀 Performing Benchmark comparison for AMD64 models in F32 and then INT8
+
+📊 Benchmarking full precision model (F32)
+CPU Usage: 1565.0%
+Per-core CPU Usage: [24.3, 23.9, 24.1, 23.9, 30.4, 24.2, 24.0, 24.0, 24.2, 24.2, 23.8, 24.1, 32.3, 24.0, 55.3, 54.1]
+Latency: 1.64s
+Summary: the RAVEN system is an internally developed battery management platform. it provides continuous measurement of cell voltage, temperature, and discharge rates across all units. the system is deployed on our local network to ensure full control over operational data and comply with internal security requirements.
+
+📊 Benchmarking quantized model (INT8)
+CPU Usage: 1559.8%
+Per-core CPU Usage: [93.2, 78.6, 72.9, 72.3, 73.8, 72.3, 73.4, 74.3, 73.3, 74.2, 72.5, 72.9, 72.5, 72.2, 74.2, 73.3]
+Latency: 1.65s
+Summary: the RAVEN system is an internally developed battery management platform. it provides continuous measurement of cell voltage, temperature, and discharge rates across all units. the system is deployed on our local network to ensure full control over operational data.
+
+🔍 Cosine Similarity between summaries: 0.9975
+
+[ 232.231030] Out of memory: Killed process 1219 (python) total-vm:2630348kB, anon-rss:272892kB, file-rss:20kB, shmem-rss:0kB, UID:0 pgtables:1524kB oom_score_adj:0
