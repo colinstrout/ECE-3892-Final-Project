@@ -34,8 +34,6 @@ dokcer run --rm -e ARCH=<YOUR DEVICE ARCHITECTURE> t5-onnx-summarizer <"Your det
 
 ### To run specific ARM64 images on a raspberry PI, see the links below
 
-- [Download T5-Small Combined F-32 and INT8 Image (2.6GB) (All Raspberry PIs)](https://vanderbilt365-my.sharepoint.com/:u:/g/personal/colin_j_strout_vanderbilt_edu/IQDTeXhCjtGkQZBUEx_vUUKfAUIFHEJV4H6M8gGfvAAM5Ks?e=1mgJBU)
+- [Download T5-Small Combined F-32 and INT8 Image (2.6GB) (All Raspberry PIs)](https://drive.google.com/file/d/1bECzUOZaNW8FEp-PD4cxt7en287VMASk/view?usp=drive_link)
 
-- [Download T5-Small INT8 Image (2.6GB) (PI ZERO2W)](https://vanderbilt365-my.sharepoint.com/:u:/g/personal/colin_j_strout_vanderbilt_edu/IQD151fhBfbeRrC12b6bygYNASiQmSKQIfVK0BYz72bUuMg?e=o3vu1i)
-
-> **Note:** These links require a Vanderbilt VUNetID login.
+- [Download T5-Small INT8 Image (2.6GB) (PI ZERO2W)](https://drive.google.com/file/d/1cL4AFVTaegbc2Pg5XjZnSbNmG3SYhr7t/view?usp=drive_link)

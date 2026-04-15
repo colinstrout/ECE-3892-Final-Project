@@ -1,6 +1,6 @@
 # ECE-3892-Reproducible-AI-Extended
 
-Github Repository for Docker Container as an extension of ECE 3892 Project 3
+Github Repository for Docker Container as an extension of ECE 3892 Project 3 for the final project of the course
 
 ## Outline
 
@@ -10,7 +10,6 @@ Case study comparing both F32 and INT8 on PC and Raspberry PI Zero 2W.
 - Latency (ms)
 - Model Size (MB)
 - CPU Utilization
-- Throughput (Token/Inference Latency)
 
 ## Setup Instructions
 
@@ -18,56 +17,68 @@ Please follow the [Detailed Step-by-Step Directions](container-instructions.md) 
 
 ## Results
 
-🚀 Performing Benchmark comparison for ARM64 models in F32 and then INT8
+**Comparison of T5-Small Performance: Desktop (AMD64) vs. Edge (ARM64)**
 
-📊 Benchmarking quantized model (INT8)
-CPU Usage: 163.3%
-Per-core CPU Usage: [18.6, 28.8, 24.0, 21.8]
-Latency: 31.02s
-Summary: the ZEUS-X1 battery array uses a heterogeneous cell-to-pack architecture. each cell rated for a nominal voltage of 3.2V. a thermal management system activates an active liquid-cooling loop.
+This extension study evaluates the trade-offs between full-precision ($F32$) and quantized ($INT8$) models across two distinct hardware architectures.
 
-Peak CPU% 115.2%
-MEM% 46%
+---
 
-🔍 Cosine Similarity: 0.9378
+## 🏗️ Hardware Specifications
 
-📊 Benchmarking quantized model (INT8)
-CPU Usage: 134.5%
-Per-core CPU Usage: [19.6, 22.1, 26.3, 20.3]
-Latency: 36.03s
-Summary: the RAVEN system is an internally developed battery management platform. it provides continuous measurement of cell voltage, temperature, and discharge rates across all units. the system is deployed on our local network to ensure full control.
-🔍 Cosine Similarity: 0.9955
+| Feature         | Desktop PC (AMD64)                | Raspberry Pi Zero 2W (ARM64) |
+| :-------------- | :-------------------------------- | :--------------------------- |
+| **Processor**   | AMD Ryzen 9 (8 Cores, 16 threads) | Broadcom BCM2710A1 (4-Core)  |
+| **RAM**         | 16GB DDR4                         | 512MB LPDDR2                 |
+| **Environment** | Windows/WSL2 Docker               | Raspberry Pi OS (Docker)     |
 
-🚀 Performing Benchmark comparison for AMD64 models in F32 and then INT8
+---
 
-📊 Benchmarking full precision model (F32)
-CPU Usage: 1562.8%
-Per-core CPU Usage: [32.7, 28.2, 25.1, 24.8, 25.1, 24.9, 25.0, 25.1, 25.4, 25.3, 25.0, 33.9, 31.3, 31.2, 29.7, 65.7]
-Latency: 1.97s
-Summary: the ZEUS-X1 battery array employs a heterogeneous cell-to-pack (CTP) architecture. each cell is rated for a nominal voltage of 3.2V. the integrated thermal management system activates an active liquid-cooling loop
+## 📦 Model Size & Quantization Efficiency
 
-📊 Benchmarking quantized model (INT8)
-CPU Usage: 1576.0%
-Per-core CPU Usage: [98.6, 70.0, 70.3, 69.7, 68.9, 68.8, 69.2, 70.1, 70.0, 69.1, 69.5, 69.5, 69.1, 69.1, 69.1, 69.5]
-Latency: 1.43s
-Summary: ZEUS-X1 battery array utilises a heterogeneous cell-to-pack architecture. it activates an active liquid-cooling loop once the internal thermistor bridge detects a temperature gradient delta (Delta T) greater than
+The transition from $F32$ to $INT8$ quantization resulted in a significant reduction in disk and memory footprint. This was the primary driver for successful deployment on the Pi Zero 2W's $512MB$ RAM limit.
 
-🔍 Cosine Similarity: 0.8375
+| Model Component       | F32 Size (MB)   | INT8 Size (MB)  | Compression Ratio |
+| :-------------------- | :-------------- | :-------------- | :---------------- |
+| **Encoder**           | $134.86 MB$     | $33.89 MB$      | $3.98 \times$     |
+| **Decoder**           | $221.72 MB$     | $55.78 MB$      | $3.97 \times$     |
+| **Decoder (w/ Past)** | $209.70 MB$     | $52.75 MB$      | $3.98 \times$     |
+| **Total Archive**     | **$566.28 MB$** | **$142.42 MB$** | **$3.98 \times$** |
 
-🚀 Performing Benchmark comparison for AMD64 models in F32 and then INT8
+### Engineering Impact
 
-📊 Benchmarking full precision model (F32)
-CPU Usage: 1565.0%
-Per-core CPU Usage: [24.3, 23.9, 24.1, 23.9, 30.4, 24.2, 24.0, 24.0, 24.2, 24.2, 23.8, 24.1, 32.3, 24.0, 55.3, 54.1]
-Latency: 1.64s
-Summary: the RAVEN system is an internally developed battery management platform. it provides continuous measurement of cell voltage, temperature, and discharge rates across all units. the system is deployed on our local network to ensure full control over operational data and comply with internal security requirements.
+1. **Memory Mapping:** The $F32$ model requires over $566MB$ just for the weights, which exceeds the Pi's physical RAM before the OS or Docker even load.
+2. **Quantization Benefit:** By reducing the weights to $INT8$, the entire model fits into $~142MB$ of memory. This leaves enough "headroom" in the $512MB$ RAM for the Python runtime and OS overhead, significantly reducing the system's reliance on slow SD-card swap space.
 
-📊 Benchmarking quantized model (INT8)
-CPU Usage: 1559.8%
-Per-core CPU Usage: [93.2, 78.6, 72.9, 72.3, 73.8, 72.3, 73.4, 74.3, 73.3, 74.2, 72.5, 72.9, 72.5, 72.2, 74.2, 73.3]
-Latency: 1.65s
-Summary: the RAVEN system is an internally developed battery management platform. it provides continuous measurement of cell voltage, temperature, and discharge rates across all units. the system is deployed on our local network to ensure full control over operational data.
+---
 
-🔍 Cosine Similarity between summaries: 0.9975
+## 📈 Comparative Analysis
 
-[ 232.231030] Out of memory: Killed process 1219 (python) total-vm:2630348kB, anon-rss:272892kB, file-rss:20kB, shmem-rss:0kB, UID:0 pgtables:1524kB oom_score_adj:0
+| Architecture | Precision | Avg Latency | Peak CPU % | Semantic Preservation | Status          |
+| :----------- | :-------- | :---------- | :--------- | :-------------------- | :-------------- |
+| **AMD64**    | **F32**   | $1.81s$     | $1565\%$   | $1.000$ (Reference)   | ✅ Success      |
+| **AMD64**    | **INT8**  | $1.54s$     | $1576\%$   | $0.9175$              | ✅ Success      |
+| **ARM64**    | **INT8**  | $33.52s$    | $163.3\%$  | $0.9666$              | ✅ Success      |
+| **ARM64**    | **F32**   | $N/A$       | $N/A$      | $N/A$                 | ❌ **OOM Kill** |
+
+---
+
+## 🔍 Technical Observations
+
+### 1. The "OOM Kill" Threshold
+
+The Raspberry Pi Zero 2W failed to run the $F32$ full-precision model. Kernel logs confirmed a **SIGKILL** by the Linux Out-of-Memory (OOM) Killer:
+
+> `[ 232.231030] Out of memory: Killed process 1219 (python) total-vm:2630348kB`
+> The $2.6GB$ virtual memory footprint overwhelmed the $512MB$ physical RAM. To achieve successful execution of the **INT8** model, a $2GB$ swapfile was required to handle the memory mapping overhead.
+
+### 2. Quantization Trade-offs (INT8)
+
+- **Latency Speedup:** On AMD64, quantization resulted in a $15\%$ reduction in inference time. On ARM64, quantization was the mechanical necessity that allowed the model to run at all.
+- **Accuracy (Cosine Similarity):**
+  - **RAVEN Summary:** Maintained a high similarity of **$0.9975$**, indicating nearly zero semantic loss.
+  - **ZEUS-X1 Summary:** Dropped to **$0.8375$** during $F32 \rightarrow INT8$ transition. This illustrates that technical nuances (like specific voltage/thermal delta triggers) are more susceptible to quantization "noise" than general descriptive text.
+
+### 3. CPU Core Utilization
+
+- **AMD64:** Distributed the workload across all 16 cores ($>1500\%$), showing the T5 ONNX runtime is highly optimized for multi-threaded desktop environments.
+- **ARM64:** Capped at $~163\%$ (utilizing roughly 1.6 cores of the 4 available). This suggests the bottleneck shifted from raw computation to **Memory I/O** and **SD-Card Swap Bandwidth**.
