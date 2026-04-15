@@ -16,15 +16,16 @@ from transformers import T5Tokenizer
 from optimum.onnxruntime import ORTModelForSeq2SeqLM
 from sentence_transformers import SentenceTransformer, util
 
-embedder_path = "./models/embedding_model"
-embedder = SentenceTransformer(embedder_path)
 
 arch = os.getenv("ARCH", "amd64").lower()
+
+embedder_path = "./models/embedding_model"
+embedder = SentenceTransformer(embedder_path)
 
 if arch == "amd64":
     MODEL_DIRS = ["./models/t5-small-onnx", "./models/t5-small-onnx-quantized-amd64"]
 else:
-    MODEL_DIRS = ["./models/t5-small-onnx", "./models./t5-smalll-onnx-quantized-arm64"]
+    MODEL_DIRS = [ "./models/t5-small-onnx", "./models/t5-small-onnx-quantized-arm64"]
 
 print(f"🚀 Performing Benchmark comparison for {arch.upper()} models in F32 and then INT8")
 
@@ -74,8 +75,9 @@ for MODEL_DIR in MODEL_DIRS:
     print("Summary: ", summary)
     summaries.append(summary)
 
-for summary in summaries:
-    embeddings.append(embedder.encode(summary, convert_to_tensor=True))
+
+
+embeddings = embedder.encode(summaries, convert_to_tensor=True)
 
 cos_sim = util.cos_sim(embeddings[0], embeddings[1])
 

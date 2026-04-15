@@ -1,16 +1,16 @@
 --extra-index-url https://download.pytorch.org/whl/cpu
 # Core AI Stack
-transformers==4.40.0
-onnxruntime==1.17.1
-optimum[onnxruntime]==1.19.1
+transformers
+onnxruntime
+optimum[onnxruntime]
 
 # Math and Data (Pinned to prevent compatibility issues)
-numpy>=1.24.0,<2.0.0
-scikit-learn==1.4.2
+numpy
+scikit-learn
 
 # NLP & Embeddings
 sentencepiece
-sentence-transformers==2.7.0
+sentence-transformers
 
 # System Benchmarking
-psutil==5.9.8
+psutil
