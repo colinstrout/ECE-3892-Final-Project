@@ -20,6 +20,7 @@ Please follow the [Detailed Step-by-Step Directions](container-instructions.md) 
 **Comparison of T5-Small Performance: Desktop (AMD64) vs. Edge (ARM64)**
 
 - This extension study evaluates the trade-offs between full-precision ($F32$) and quantized ($INT8$) models across two distinct hardware architectures.
+- As mentioned above, this study utilizes the t5-small model by Google for this analysis, as this model was used in the assignment that inspired this study.
 - The notebook used to export the models in ONNX format can be seen [here](./benchmarking/onnx_format_generation.ipynb)
 
 ---
