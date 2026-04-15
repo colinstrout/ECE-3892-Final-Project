@@ -1,0 +1,35 @@
+# Source Control
+.git
+.gitignore
+.gitattributes
+
+# Editor & IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Python Internal Bloat
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.venv/
+env/
+venv/
+
+# Large Archives & Local Data
+*.gz
+*.tar
+*.tar.gz
+*.zip
+
+# Documentation & Metadata
+*.md
+LICENSE
+.DS_Store
+
+# Lab/Assignment specific
+*.log
+results/
